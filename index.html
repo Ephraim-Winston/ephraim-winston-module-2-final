@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Just Do it!</title>
+  </head>
+  <body>
+
+    <!-- Add this video element in your HTML body -->
+    <!--<video id="encouragingVideo" style="display: none" width="320" height="240" controls>
+        <source src="https://www.youtube.com/watch?v=ZXsQAXx_ao0" 
+        type="video/mp4">
+        Your browser does not support the video tag.
+    </video>-->
+
+    <div class="container">
+      <header>
+        <img id= 'shia' src="https://s.yimg.com/ny/api/res/1.2/DrNb7EvX0pEaJDCh13upKQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04MzU7Y2Y9d2VicA--/https://s.yimg.com/cd/resizer/2.0/FIT_TO_WIDTH-w1779/26cd4cf87ddda6c068d29d25eaa0d8aa5993a33d.jpg" fetchpriority="high"  alt="" />
+        <h1>Just Do it!</h1>
+      </header>
+      <form id="item-form">
+            <div id = "priority">
+
+                <label for="prioritySelect">Priority:</label>
+
+                <select id="prioritySelect" name="priority">
+                    <option class= 'options' id="default" value="" disabled selected>Select Priority</option>
+                    <option class= 'options' id="highPrior" value="high">High</option>
+                    <option class= 'options' id ="medPrior" value="medium">Medium</option>
+                    <option class= 'options' id = "lowPrior" value="low">Low</option>
+                </select>
+            </div>
+            
+        <div class="form-control">
+          <input
+            type="text"
+            class="form-input"
+            id="item-input"
+            name="item"
+            placeholder="Enter Item"
+          />
+        </div>
+        <div class="form-control">
+          <button type="submit" class="btn">
+            <i class="fa-solid fa-plus"></i> Add Item
+          </button>
+        </div>
+      </form>
+
+      <ul id="item-list" class="items">
+        
+      </ul>
+
+      <button id="clear" class="btn-clear">Clear All</button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
