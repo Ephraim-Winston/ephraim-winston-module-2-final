@@ -6,6 +6,7 @@ const itemList = document.getElementById('item-list');
 const clearBtn = document.getElementById('clear');
 const prioritySelect = document.getElementById('prioritySelect');
 let selectedPriority = document.getElementById('prioritySelect').value;
+let settingPrior = false;
 //Bringing my prioritization drop down into DOM
 //let setPrior = false;
 let isEditMode = false 
@@ -44,22 +45,24 @@ function hidePriorities(){
     //when not setting priorities 
     
     //do not display the prority dropdown
-    if (setPrior === false){
+    
     const priorDrop = document.getElementById('priority');
     priorDrop.style.display = 'none';
-    }
+    
 
     
 }
-/*function displayPrior(){
-    let setPrior = true;
+function displayPrior(){
+    
 
-    if (setPrior===true){
+    if (itemInput.value.trim()!== ''){
         const priorDrop = document.getElementById('priority');
         priorDrop.style.display = 'block';
+    } else{
+        hidePriorities()
     }
 
-}*/
+}
 
 
 function onAddItemSubmit(e){
@@ -69,7 +72,7 @@ function onAddItemSubmit(e){
     
     //displayPrior();
 
-    console.log(validateForm ? 'returned true': 'returned false');
+    //console.log(validateForm ? 'returned true': 'returned false');
 
     if(!validateForm()){
         return;
@@ -78,13 +81,22 @@ function onAddItemSubmit(e){
     
    
     
-    //displayPrior();
-    const newItem = itemInput.value;
+    
+    //const newItem = itemInput.value;
+
+    //THIS IS CAUSING PROBLEM
+    //"newItem" has been defined as an object which is breaking my if statement below 
+    // if(newItem ==='') so my submission goes through with empty input field
+    const newItem = {
+        "item": itemInput.value,
+        "priority": prioritySelect.value,
+    };
+    //console.log(newItem);
 
     
 
     //validate input 
-    if (newItem === ''){
+    if (newItem.item === ''){
         alert('No task added. Just Do it already!');
         return; 
     }
@@ -119,14 +131,19 @@ function onAddItemSubmit(e){
     
      checkUI();
 
+     hidePriorities();
+
     //this clears the input field for next input
     itemInput.value = '';
+    
 }
 
 function addItemToDOM(item){
     //create list item
     const li = document.createElement('li');
-    li.appendChild(document.createTextNode(item));
+    //li.setAttribute("class", prioritySelect.value)
+    li.setAttribute("class", item.priority);
+    li.appendChild(document.createTextNode(item.item));
 
     const button = createButton('remove-item btn-link text-red')
     li.appendChild(button);
@@ -141,6 +158,7 @@ function addItemToStorage(item){
 
     //Adding new item to array 
     itemsFromStorage.push(item);
+    
 
     //convert to JSON string and set to local storage
 
@@ -210,22 +228,34 @@ function removeItem(item){
         //remove item from DOM
         item.remove();
         //remove item from storage 
+
+        //??What if we remove the whole item instead of text content.?? DIDN'T WORK
         removeItemFromStorage(item.textContent);
+        //??is the list item added to storage or just the text content??
 
         checkUI();
         //Celebratory Shia video clip
     } //else{playEncouragingVideo(3,4)}
+
+    //console.log(item);
 };
 
-function removeItemFromStorage(item){
+function removeItemFromStorage(itemToRemove){
     let itemsFromStorage = getItemsFromStorage();
+    
 
     //filterout item to be removed 
-    itemsFromStorage = itemsFromStorage.filter((i) => i !== item);
+    itemsFromStorage = itemsFromStorage.filter((item) => item.item !== itemToRemove);
+    //console.log(itemsFromStorage);
+
+    
 
     //re-set to local storage
     localStorage.setItem('items', JSON.stringify(itemsFromStorage));
+    //this returns the text milk
+    console.log(localStorage);
 }
+
 
 //function for clearing all items from item list 
 function clearItems(){
@@ -264,7 +294,8 @@ function init(){
 itemList.addEventListener('click', onClickItem);
 clearBtn.addEventListener('click', clearItems);
 document.addEventListener('DOMContentLoaded', displayItems);
-//document.addEventListener('DOMContentLoaded',hidePriorities);
+document.addEventListener('DOMContentLoaded',hidePriorities);
+itemInput.addEventListener('input', displayPrior);
 }
 
 checkUI();

@@ -60,6 +60,25 @@ header h1 {
   width: 100%
 }
 
+/*Styling for list item when priority has been selected*/
+.high{
+  background-color: rgb(140, 67, 67);
+  color: white;
+  box-shadow: -5px 5px black; 
+}
+
+.medium{
+  background-color: rgb(224, 181, 101);
+  color: black;
+  box-shadow: -5px 5px black;
+}
+
+.low{
+  background-color: yellow;
+  color: black;
+  box-shadow: -5px 5px black;
+}
+
 
 /* Form & Input */
 .form-input {
